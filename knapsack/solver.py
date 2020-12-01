@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import pandas as pd
+#import pandas as pd
 from collections import namedtuple
 Item = namedtuple("Item", ['index', 'value', 'weight'])
 
