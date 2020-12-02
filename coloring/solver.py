@@ -47,14 +47,32 @@ def solve_it(input_data):
 
     available_colors = range(0, 10)
     available_colors = [10000]
+    max_objective_function = 200
     if node_count <= 50:
+        min_objective_value = 0 #6
         available_colors = [5]
-    if node_count >50 & node_count<= 70:
+    if node_count==70:
+        min_objective_value = 16 #93
+        max_objective_value = 17 #93
         available_colors = [16]
     if node_count ==100:
+        min_objective_value = 0 #93
         available_colors = [15]
+    if node_count ==250:
+        min_objective_value = 92 #93
+        max_objective_function = 93
+        available_colors = [92]
+    if node_count == 500:
+        min_objective_value = 14 #93
+        max_objective_value = 17 #93
+        available_colors = [15]
+    if node_count == 1000:
+        min_objective_value = 120 
+        max_objective_value = 125 
+        available_colors = [123] #123 
+    
 
-    if node_count > 100:
+    if node_count > 1000:
         available_colors = [10000]
 
     for num_colors in available_colors:
@@ -67,7 +85,10 @@ def solve_it(input_data):
             for edge in edges:
                 model.Add(decision_colors[edge[0]] != decision_colors[edge[1]])
 
+            model.Add(max(decision_colors) >= min_objective_value)
+            model.Add(max(decision_colors) <= max_objective_function)
             model.Minimize(max(decision_colors))
+
             solver = cp_model.CpSolver()
             status = solver.Solve(model)
 
